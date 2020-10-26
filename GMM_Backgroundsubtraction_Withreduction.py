@@ -97,11 +97,11 @@ class GMM():
                     m_mask[i][j] = 0
 
         m_mask = cv2.medianBlur(m_mask, 7)
-
         kernel_d = np.ones((5, 5), np.uint8)
         m_mask = cv2.dilate(m_mask, kernel_d)
-        element = cv2.getStructuringElement(cv2.MORPH_CROSS, (5, 5))  # 调用库函数开启形态学去噪  交叉形状
-        m_mask = cv2.morphologyEx(m_mask, cv2.MORPH_OPEN, element)  # 开运算去噪
+        element = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))  # 调用库函数开启形态学去噪  椭圆形状
+        m_mask = cv2.morphologyEx(m_mask, cv2.MORPH_CLOSE, element)  # 开运算去噪
+
         return m_mask
 
     def judge_img(self,imgs):
